@@ -22,9 +22,11 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file initial/pom.xml
-    - name: Get pwd
-      run: echo "$(pwd)"
-    - name: List files
-      run: echo "$(ls -l)"
+    - name: Docker login
+      env: 
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build Docker image
       run: docker build -t dhruvbhartia07/hello-world:v1 ./initial
