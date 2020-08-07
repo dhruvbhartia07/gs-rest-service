@@ -43,5 +43,20 @@ jobs:
         docker push "$DOCKER_USER/hello-world:v1"
         unset DOCKER_USER
         docker logout
-    - name: Check kubectl
-      run: echo "$(kubectl --help)"
+    - name: Adding config file
+      env: 
+        KUBERNETES_SECRET: ${{ secrets.KUBERNETES_SECRET }}
+      run: |
+        echo -e "$KUBERNETES_SECRET" > conf
+        unset KUBERNETES_SECRET
+    - name: Setting path
+      env: 
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+      run: |
+        export KUBECONFIG="$(pwd)/conf"
+        kubectl get all -n "$DOCKER_USER"
+        unset DOCKER_USER
+    - name: Removing conf
+      run: |
+        rm -rf conf
+        unset KUBECONFIG
