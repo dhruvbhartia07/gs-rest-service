@@ -29,6 +29,8 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build Docker image
+      env: 
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
       run: docker build -t "$DOCKER_USER/hello-world:v1" ./initial
     - name: List images
       run: docker images
