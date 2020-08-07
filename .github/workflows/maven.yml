@@ -37,14 +37,13 @@ jobs:
       env: 
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
       run: |
-        echo "$GITHUB_SHA"
-        docker build -t "$DOCKER_USER/hello-world:v1" ./initial
+        docker build -t "$DOCKER_USER/hello-world:$GITHUB_SHA" ./initial
         unset DOCKER_USER
     - name: Docker push
       env: 
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
       run: |
-        docker push "$DOCKER_USER/hello-world:v1"
+        docker push "$DOCKER_USER/hello-world:$GITHUB_SHA"
         unset DOCKER_USER
         docker logout
     - name: Adding config file
@@ -59,6 +58,12 @@ jobs:
       run: |
         export KUBECONFIG="$(pwd)/conf"
         kubectl get all -n "$DOCKER_USER"
+        unset DOCKER_USER
+    - name: Updateing deployment
+      env: 
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+      run: |
+        kubectl set image deployment/new api="$DOCKER_USER/hello-world:$GITHUB_SHA" -n "$DOCKER_USER" --record
         unset DOCKER_USER
     - name: Removing conf
       run: |
