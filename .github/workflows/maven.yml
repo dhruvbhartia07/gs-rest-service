@@ -63,7 +63,7 @@ jobs:
       env: 
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
       run: |
-        kubectl set image deployment/new api="$DOCKER_USER/hello-world:$GITHUB_SHA" -n "$DOCKER_USER" --record
+        kubectl set image deployment/new2 hello-world="$DOCKER_USER/hello-world:$GITHUB_SHA"
         unset DOCKER_USER
     - name: Removing conf
       run: |
