@@ -22,3 +22,5 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file initial/pom.xml
+    - name: Build Docker image
+      run: docker build -t dhruvbhartia07/hello-world:v1 ./initial
