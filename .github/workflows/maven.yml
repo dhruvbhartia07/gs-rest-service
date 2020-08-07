@@ -43,3 +43,5 @@ jobs:
         docker push "$DOCKER_USER/hello-world:v1"
         unset DOCKER_USER
         docker logout
+    - name: Check kubectl
+      run: echo "$(kubectl --help)"
