@@ -29,7 +29,7 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build Docker image
-      run: docker build -t $DOCKER_USER/hello-world:v1 ./initial
+      run: docker build -t "$DOCKER_USER/hello-world:v1" ./initial
     - name: List images
       run: docker images
     #- name: Docker push
