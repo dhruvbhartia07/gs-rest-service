@@ -23,7 +23,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file initial/pom.xml
     - name: Get pwd
-      run: ehco "$(pwd)"
+      run: echo "$(pwd)"
     - name: List files
       run: echo "$(ls -l)"
     - name: Build Docker image
