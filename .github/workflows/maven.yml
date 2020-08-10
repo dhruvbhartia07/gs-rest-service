@@ -73,3 +73,11 @@ jobs:
         cd gs-rest-service-manifest/initial
         sed -i "s@image:.*@image: $DOCKER_USER/hello-world:$GITHUB_SHA@" deployment.yaml
         cat deployment.yaml
+    - name: Check owd
+      run: echo "$(pwd)"
+
+
+
+  
+        
+  
