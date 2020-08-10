@@ -64,3 +64,9 @@ jobs:
     - name: Removing conf
       run: |
         rm -rf conf
+    - name: Git clone
+      run: |
+        cd ..
+        git clone https://github.com/dhruvbhartia07/gs-rest-service-manifest.git
+        echo "$(pwd)"
+        echo "$(ls)"
