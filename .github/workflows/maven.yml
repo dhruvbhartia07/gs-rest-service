@@ -46,24 +46,24 @@ jobs:
         docker push "$DOCKER_USER/hello-world:$GITHUB_SHA"
         unset DOCKER_USER
         docker logout
-    - name: Adding config file
-      env: 
-        KUBERNETES_SECRET: ${{ secrets.KUBERNETES_SECRET }}
-      run: |
-        echo -e "$KUBERNETES_SECRET" > conf
-        unset KUBERNETES_SECRET
-    - name: Setting path and updating deployment
-      env: 
-        DOCKER_USER: ${{ secrets.DOCKER_USER }}
-      run: |
-        export KUBECONFIG="$(pwd)/conf"
-        kubectl get all -n "$DOCKER_USER"
-        kubectl set image deployment/new2 hello-world="$DOCKER_USER/hello-world:$GITHUB_SHA"
-        unset DOCKER_USER
-        unset KUBECONFIG
-    - name: Removing conf
-      run: |
-        rm -rf conf
+    #- name: Adding config file
+    #  env: 
+    #    KUBERNETES_SECRET: ${{ secrets.KUBERNETES_SECRET }}
+    #  run: |
+    #    echo -e "$KUBERNETES_SECRET" > conf
+    #    unset KUBERNETES_SECRET
+    #- name: Setting path and updating deployment
+    #  env: 
+    #    DOCKER_USER: ${{ secrets.DOCKER_USER }}
+    #  run: |
+    #    export KUBECONFIG="$(pwd)/conf"
+    #    kubectl get all -n "$DOCKER_USER"
+    #    kubectl set image deployment/new2 hello-world="$DOCKER_USER/hello-world:$GITHUB_SHA"
+    #    unset DOCKER_USER
+    #    unset KUBECONFIG
+    #- name: Removing conf
+    #  run: |
+    #    rm -rf conf
     - name: Git clone
       env: 
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
