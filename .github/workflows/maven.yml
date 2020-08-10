@@ -81,8 +81,8 @@ jobs:
         NAME: ${{ secrets.NAME }}
       run: | 
         cd ../gs-rest-service-manifest/initial
-        git config user.email "$GITHUB_EMAIL"
-        git config user.name "$GITHUB_NAME"
+        git config user.email "$EMAIL"
+        git config user.name "$NAME"
         git add .
         git commit -m "Updated image tag $GITHUB_SHA"
         git push "https://$DOCKER_USER:$NEW_TOKEN@github.com/dhruvbhartia07/gs-rest-service-manifest.git"
