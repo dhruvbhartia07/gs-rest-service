@@ -65,8 +65,11 @@ jobs:
       run: |
         rm -rf conf
     - name: Git clone
+      env: 
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
       run: |
         cd ..
         git clone https://github.com/dhruvbhartia07/gs-rest-service-manifest.git
-        echo "$(pwd)"
-        echo "$(ls)"
+        cd gs-rest-service-manifest/initial
+        sed -i "s@image:.*@image: $DOCKER_USER/hello-world:$GITHUB_SHA@" deployment.yaml
+        cat deployment.yaml
