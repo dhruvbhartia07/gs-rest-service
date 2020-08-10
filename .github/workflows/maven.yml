@@ -77,11 +77,16 @@ jobs:
       env: 
         NEW_TOKEN: ${{ secrets.NEW_TOKEN }}
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
+      #run: | 
+        #cd ../gs-rest-service-manifest/initial
+        #git config user.email "$GITHUB_EMAIL"
+        #git config user.name "$GITHUB_NAME"
+        #git add .
+        #git commit -m "Updated image tag $GITHUB_SHA"
+        #git push "https://$DOCKER_USER:$NEW_TOKEN@github.com/dhruvbhartia07/gs-rest-service-manifest.git"
       run: | 
-        cd ../gs-rest-service-manifest/initial
-        git add .
-        git commit -m "Updated image tag $GITHUB_SHA"
-        git push "https://$DOCKER_USER:$NEW_TOKEN@github.com/dhruvbhartia07/gs-rest-service-manifest.git"
+        echo "${{ secrets.GITHUB_EMAIL }}"
+        echo "${{ secrets.GITHUB_NAME }}"
 
       
 
